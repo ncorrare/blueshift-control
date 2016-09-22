@@ -12,6 +12,9 @@ mod "puppetlabs/reboot"
 mod "garethr/kubernetes"
 mod "garethr/docker", "5.2.0"
 mod "puppetlabs/docker_ucp"
+mod "stahnma/epel"
+mod "puppetlabs/apt"
+
 
 
 
