@@ -1,7 +1,7 @@
 forge "http://forge.puppetlabs.com"
 
 # Modules from the Puppet Forge
-# Versions should be updated to be the latest at the time you start
+# Puppet or Puppeteers
 mod "puppetlabs/inifile"
 mod "puppetlabs/stdlib"
 mod "puppetlabs/git"
@@ -15,8 +15,9 @@ mod "puppetlabs/docker_ucp"
 mod "stahnma/epel"
 mod "puppetlabs/apt"
 
-
-
+# Community Modules
+mod "cristifalcas/etcd"
+mod "cristifalcas/kubernetes"
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
