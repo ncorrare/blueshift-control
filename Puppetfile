@@ -17,6 +17,7 @@ mod "puppetlabs/apt"
 
 # Community Modules
 mod "cristifalcas/etcd"
+mod "cristifalcas/flannel"
 mod "cristifalcas/kubernetes"
 
 # Modules from Git
