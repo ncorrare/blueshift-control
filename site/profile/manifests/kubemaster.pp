@@ -6,9 +6,6 @@ class profile::kubemaster {
   class { 'kubernetes::master::scheduler':
     master => 'http://127.0.0.1:8080',
   }
-  class { 'kubernetes::master::kube_proxy':
-    master => 'http://127.0.0.1:8080',
-  }
   class { 'etcd':
     ensure                     => 'latest',
     etcd_listen_client_urls    => 'http://0.0.0.0:2379',
