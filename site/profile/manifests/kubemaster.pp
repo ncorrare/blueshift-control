@@ -8,7 +8,7 @@ class profile::kubemaster {
   }
   class { 'etcd':
     ensure                     => 'latest',
-    etcd_listen_client_urls    => 'http://0.0.0.0:2379',
+    listen_client_urls    => 'http://0.0.0.0:2379',
   }
   etcd_key { '/atomic.io/network/config':
     value => '{ "Network": "172.17.0.0/16" }',
