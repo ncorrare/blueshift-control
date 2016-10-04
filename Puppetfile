@@ -16,9 +16,6 @@ mod "stahnma/epel"
 mod "puppetlabs/apt"
 
 # Community Modules
-mod "cristifalcas/etcd"
-mod "cristifalcas/flannel"
-mod "cristifalcas/kubernetes"
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
