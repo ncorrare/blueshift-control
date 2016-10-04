@@ -7,8 +7,9 @@ class profile::kubemaster {
     master => 'http://127.0.0.1:8080',
   }
   class { 'etcd':
-    ensure                     => 'latest',
+    ensure                => 'latest',
     listen_client_urls    => 'http://0.0.0.0:2379',
+    cluster_enabled       => false,
   }
   etcd_key { '/atomic.io/network/config':
     value => '{ "Network": "172.17.0.0/16" }',
