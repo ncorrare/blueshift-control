@@ -6,12 +6,7 @@ class profile::kubemaster {
   class { 'kubernetes::master::scheduler':
     master => 'http://127.0.0.1:8080',
   }
-  class { 'etcd':
-    ensure                => 'latest',
-    listen_client_urls    => 'http://0.0.0.0:2379',
-    advertise_client_urls => 'http://localhost:2379',
-    cluster_enabled       => false,
-  }
+  include etcd
   etcd_key { '/atomic.io/network/config':
     value => '{ "Network": "172.17.0.0/16" }',
   }
