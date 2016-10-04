@@ -9,6 +9,7 @@ class profile::kubemaster {
   class { 'etcd':
     ensure                => 'latest',
     listen_client_urls    => 'http://0.0.0.0:2379',
+    advertise_client_urls => 'http://localhost:2379',
     cluster_enabled       => false,
   }
   etcd_key { '/atomic.io/network/config':
