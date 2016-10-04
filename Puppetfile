@@ -9,7 +9,6 @@ mod "puppetlabs/concat"
 mod "puppetlabs/ntp"
 mod "puppetlabs/motd"
 mod "puppetlabs/reboot"
-mod "puppetlabs/docker_ucp"
 mod "stahnma/epel"
 mod "puppetlabs/apt"
 
@@ -17,6 +16,7 @@ mod "puppetlabs/apt"
 mod "cristifalcas/etcd"
 mod "cristifalcas/flannel"
 mod "cristifalcas/kubernetes"
+mod "cristifalcas/docker"
 
 # Modules from Git
 # Examples: https://github.com/puppetlabs/r10k/blob/master/doc/puppetfile.mkd#examples
