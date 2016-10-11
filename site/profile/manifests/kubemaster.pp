@@ -6,19 +6,20 @@ class profile::kubemaster {
   }
   file { '/etc/etcd/etcd.conf':
     ensure  => present,
-    source  => 'puppet:///modules/kube_platform/etcd.conf',
+    source  => 'puppet:///modules/profile/etcd.conf',
     require => Package['etcd'],
-    before  => Service['etcd'], 
+    notify  => Service['etcd'], 
   }
   file { '/etc/kubernetes/apiserver':
     ensure  => present,
-    source  => 'puppet:///modules/kube_platform/apiserver',
+    source  => 'puppet:///modules/profile/apiserver',
     require => Package['kubernetes'],
-    before  => Service['kube-apiserver'],
+    notify  => Service['kube-apiserver'],
   }
   service { ['etcd','kube-apiserver','kube-controller-manager','kube-scheduler']:
-    ensure => 'running',
-    enable => 'true',
+    ensure  => 'running',
+    enable  => 'true',
+    require => File['/etc/kubernetes/apiserver','/etc/etcd/etcd.conf'],
   }
   exec { 'etcdctl mk /atomic.io/network/config \'{"Network":"172.17.0.0/16"}\'':
     unless  => 'etcdctl get /atomic.io/network/config',
