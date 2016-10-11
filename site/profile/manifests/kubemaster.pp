@@ -1,19 +1,29 @@
 class profile::kubemaster {
-  class { 'kubernetes::master::apiserver':
-    allow_privileged         => true,
-    service_cluster_ip_range => '10.20.1.0/24',
+  include epel
+  include ntp
+  package { ['etcd','kubernetes']:
+    ensure => installed,
   }
-  class { 'kubernetes::master::scheduler':
-    master => 'http://127.0.0.1:8080',
+  file { '/etc/etcd/etcd.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/kube_platform/etcd.conf',
+    require => Package['etcd'],
+    before  => Service['etcd'], 
   }
-  class { 'kubernetes::master::kube_proxy':
-    master => 'http://127.0.0.1:8080',
+  file { '/etc/kubernetes/apiserver':
+    ensure  => present,
+    source  => 'puppet:///modules/kube_platform/apiserver',
+    require => Package['kubernetes'],
+    before  => Service['kube-apiserver'],
   }
-  class { 'etcd':
-    ensure                     => 'latest',
-    etcd_listen_client_urls    => 'http://0.0.0.0:2379',
+  service { ['etcd','kube-apiserver','kube-controller-manager','kube-scheduler']:
+    ensure => 'running',
+    enable => 'true',
   }
-  etcd_key { '/atomic.io/network/config':
-    value => '{ "Network": "172.17.0.0/16" }',
+  exec { 'etcdctl mk /atomic.io/network/config \'{"Network":"172.17.0.0/16"}\'':
+    unless  => 'etcdctl get /atomic.io/network/config',
+    path    => '/bin',
+    require => Service['etcd'],
   }
-} 
+
+}
