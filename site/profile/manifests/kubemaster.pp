@@ -48,5 +48,12 @@ class profile::kubemaster {
     ensure  => present,
     require => File['/etc/puppetlabs/puppet/kubernetes.conf'],
   }
+  package { ['cockpit','cockpit-kubernetes']:
+    ensure => installed,
+  }
+  service { 'firewalld':
+    ensure => stopped,
+    enable => false,
+  }
 
 }

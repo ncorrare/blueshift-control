@@ -32,5 +32,9 @@ class profile::kubeminion (
     ensure => running,
     enable => true,
   }
+  service {'firewalld':
+    ensure => stopped,
+    enable => false,
+  }
 }
 
