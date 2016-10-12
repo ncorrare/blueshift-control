@@ -51,6 +51,11 @@ class profile::kubemaster {
   package { ['cockpit','cockpit-kubernetes']:
     ensure => installed,
   }
+  service { 'cockpit':
+    ensure  => running,
+    enable  => true,
+    require => Package['cockpit'], 
+  }
   service { 'firewalld':
     ensure => stopped,
     enable => false,
