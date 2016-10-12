@@ -39,5 +39,14 @@ class profile::kubemaster {
     path    => '/bin',
     require => Service['etcd'],
   }
+  file { '/etc/puppetlabs/puppet/kubernetes.conf':
+    ensure  => file,
+    source  => 'puppet:///modules/profile/kubernetes.conf',
+    require => Package['kubeclient'],
+  }
+  kubernetes_namespace { 'kube-system':
+    ensure  => present,
+    require => File['/etc/puppetlabs/puppet/kubernetes.conf'],
+  }
 
 }
