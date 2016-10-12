@@ -5,13 +5,13 @@ class profile::kubemaster {
     ensure => installed,
   }
   file { '/etc/etcd/etcd.conf':
-    ensure  => present,
+    ensure  => file,
     source  => 'puppet:///modules/profile/etcd.conf',
     require => Package['etcd'],
     notify  => Service['etcd'], 
   }
   file { '/etc/kubernetes/apiserver':
-    ensure  => present,
+    ensure  => file,
     source  => 'puppet:///modules/profile/apiserver',
     require => Package['kubernetes'],
     notify  => Service['kube-apiserver'],
