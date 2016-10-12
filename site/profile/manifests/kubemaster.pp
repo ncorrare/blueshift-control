@@ -4,6 +4,14 @@ class profile::kubemaster {
   package { ['etcd','kubernetes']:
     ensure => installed,
   }
+  package { 'activesupport':
+    ensure   => '4.1.14',
+    provider => 'puppet_gem',
+  }
+  package { 'kubeclient':
+    ensure   => 'latest',
+    provider => 'puppet_gem',
+  }
   file { '/etc/etcd/etcd.conf':
     ensure  => file,
     source  => 'puppet:///modules/profile/etcd.conf',
