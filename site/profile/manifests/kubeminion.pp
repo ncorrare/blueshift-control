@@ -9,20 +9,23 @@ class profile::kubeminion (
 
   file { '/etc/sysconfig/flanneld':
     ensure  => file,
-    content => erb('profile/flanneld.erb', { 'kubemaster' => $kubemaster }),
+    content => template('profile/flanneld.erb', { 'kubemaster' => $kubemaster }),
     require => Package['flannel'],
+    notify  => Service['flanneld'],
   }
 
   file { '/etc/kubernetes/config':
     ensure  => file,
-    content => erb('profile/config.erb', { 'kubemaster' => $kubemaster }),
+    content => template('profile/config.erb', { 'kubemaster' => $kubemaster }),
     require => Package['kubernetes'],
+    notify  => Service['kubelet','kube-proxy'],
   }
 
   file { '/etc/kubernetes/kubelet':
     ensure  => file,
-    content => erb('profile/kubelet.erb', { 'kubemaster' => $kubemaster }),
+    content => template('profile/kubelet.erb', { 'kubemaster' => $kubemaster }),
     require => Package['kubernetes'],
+    notify  => Service['kubelet'],
   }
 
   service { ['kube-proxy', 'kubelet', 'docker', 'flanneld']:
