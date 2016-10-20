@@ -12,7 +12,7 @@ class profile::docker_ghost (
       image   => 'ghost',
       command => 'npm start',
       require => Docker::Image['ghost'],
-      ports   => ['80:2368','2368:2368'],
+      ports   => ['80:2368'],
       notify  => Exec['ifup'],
     }
   }
@@ -22,12 +22,14 @@ class profile::docker_ghost (
         image   => 'ghost',
         command => 'npm start',
         require => Docker::Image['ghost'],
-        ports   => ['80:2368','2368:2368'],
+        ports   => ['80:2368'],
       }
     }
-  service {'firewalld':
-    ensure => stopped,
-    enable => false,
+  firewall { '100 allow http and https access':
+    port   => [80, 2368],
+    proto  => tcp,
+    action => accept,
+  }
   }
   exec { 'ifup':
     command     => "/sbin/ifup $tse_dockerhost::interface",
