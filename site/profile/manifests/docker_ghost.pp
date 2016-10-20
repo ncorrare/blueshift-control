@@ -25,10 +25,9 @@ class profile::docker_ghost (
         ports   => ['80:2368','2368:2368'],
       }
     }
-    firewall { '100 allow http and https access':
-    port   => [80, 2368],
-    proto  => tcp,
-    action => accept,
+  service {'firewalld':
+    ensure => stopped,
+    enable => false,
   }
   exec { 'ifup':
     command     => "/sbin/ifup $tse_dockerhost::interface",
