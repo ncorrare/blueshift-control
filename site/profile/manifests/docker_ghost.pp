@@ -30,7 +30,6 @@ class profile::docker_ghost (
     proto  => tcp,
     action => accept,
   }
-  }
   exec { 'ifup':
     command     => "/sbin/ifup $tse_dockerhost::interface",
     refreshonly => true,
